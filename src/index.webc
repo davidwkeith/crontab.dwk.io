@@ -1,0 +1,30 @@
+---
+title: crontab clock
+description: The current time in crontab format.
+changeFreq: yearly
+layout: base.webc
+---
+
+<div id="clock-container">
+  <div id="crontab-clock"></div>
+  <div id="help">
+    m&nbsp;&nbsp;&nbsp;&nbsp;H&nbsp;&nbsp;&nbsp;&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;M&nbsp;&nbsp;&nbsp;&nbsp;d
+  </div>
+</div>
+
+<script>
+  function updateTime() {
+    let clockDiv = document.getElementById("crontab-clock");
+    let now = new Date();
+    let cronString = [
+      now.getMinutes(),
+      now.getHours(),
+      now.getDate(),
+      now.getMonth() + 1,
+      now.getDay(),
+    ].join(" ");
+    clockDiv.innerText = cronString;
+  }
+  updateTime();
+  window.setInterval(updateTime, 1000);
+</script>

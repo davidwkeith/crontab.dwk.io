@@ -1,0 +1,86 @@
+{
+  "name": "@dwk/crontab.dwk.io",
+  "version": "1.0.0",
+  "description": "The current time in crontab format.",
+  "type": "module",
+  "scripts": {
+    "serve": "npx @11ty/eleventy --serve",
+    "build": "npx @11ty/eleventy",
+    "test": "npm run build",
+    "lint": "eslint .",
+    "format": "prettier --write ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/davidwkeith/crontab.dwk.io.git"
+  },
+  "keywords": [
+    "cron",
+    "crontab",
+    "terminal"
+  ],
+  "author": {
+    "name": "David W. Keith",
+    "email": "git@dwk.io",
+    "url": "https://dwk.io/"
+  },
+  "license": "ISC",
+  "licenseUrl": "https://opensource.org/licenses/ISC",
+  "bugs": {
+    "url": "https://gitlab.com/davidwkeith/crontab.dwk.io/issues",
+    "email": "git@dwk.io"
+  },
+  "funding": "https://www.buymeacoffee.com/davidwkeith",
+  "homepage": "https://crontab.dwk.io",
+  "engines": {
+    "node": ">=20.11.1",
+    "npm": ">=10.9.0"
+  },
+  "os": [
+    "darwin",
+    "linux",
+    "win32"
+  ],
+  "cpu": [
+    "x64",
+    "arm64"
+  ],
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.json": [
+      "prettier --write"
+    ],
+    "*.md": [
+      "prettier --write"
+    ],
+    "*.webc": [
+      "prettier --write"
+    ],
+    "*.css": [
+      "prettier --write"
+    ]
+  },
+  "dependencies": {
+    "@11ty/eleventy": "^3.1.2",
+    "@11ty/eleventy-fetch": "^5.1.0",
+    "@11ty/eleventy-img": "^6.0.4",
+    "@11ty/eleventy-plugin-webc": "^0.11.2",
+    "autoprefixer": "^10.4.21",
+    "dotenv": "^17.2.0",
+    "eslint": "^9.32.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.3",
+    "html-minifier-terser": "^7.2.0",
+    "husky": "^9.1.7",
+    "jsonld-lint": "^0.3.0",
+    "lint-staged": "^15.5.2",
+    "postcss": "^8.5.6",
+    "postcss-cli": "^11.0.1",
+    "postcss-load-config": "^6.0.1",
+    "prettier": "^3.6.2",
+    "sharp": "^0.34.3"
+  }
+}
