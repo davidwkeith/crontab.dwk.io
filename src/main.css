@@ -1,0 +1,102 @@
+/* Base styles for the terminal look */
+:root {
+  --terminal-bg-dark: #1e1e1e;
+  --terminal-text-dark: #00ff00; /* Green text for dark mode */
+  --terminal-border-dark: #333;
+
+  --terminal-bg-light: #ffffff;
+  --terminal-text-light: #000000;
+  --terminal-border-light: #ccc;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--terminal-bg-dark);
+  color: var(--terminal-text-dark);
+  font-family: 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', monospace;
+  overflow: hidden; /* Prevent scrollbars */
+}
+
+/* Terminal container styling */
+#clock-container {
+  background-color: var(--terminal-bg-dark);
+  border: 1px solid var(--terminal-border-dark);
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.5); /* Green glow */
+  padding: 20px;
+  text-align: center;
+  font-size: 3em; /* Adjusted for better fit */
+  margin: 20px; /* Add some margin */
+  max-width: 90%; /* Responsive width */
+  box-sizing: border-box;
+  position: relative;
+}
+
+#crontab-clock {
+  font-size: 1.5em; /* Make the clock larger */
+  white-space: nowrap; /* Prevent wrapping */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#help {
+  opacity: 0;
+  font-size: 0.4em; /* Smaller help text */
+  transition: opacity 0.3s ease-in-out;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+}
+
+#clock-container:hover #help {
+  opacity: 1;
+}
+
+/* Light mode theme */
+body.theme-light {
+  background-color: var(--terminal-bg-light);
+  color: var(--terminal-text-light);
+}
+
+body.theme-light #clock-container {
+  background-color: var(--terminal-bg-light);
+  border: 1px solid var(--terminal-border-light);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for light mode */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  #clock-container {
+    font-size: 2em;
+    padding: 15px;
+  }
+
+  #crontab-clock {
+    font-size: 1.2em;
+  }
+
+  #help {
+    font-size: 0.3em;
+  }
+}
+
+@media (max-width: 480px) {
+  #clock-container {
+    font-size: 1.5em;
+    padding: 10px;
+  }
+
+  #crontab-clock {
+    font-size: 1em;
+  }
+
+  #help {
+    font-size: 0.25em;
+  }
+}
