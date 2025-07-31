@@ -26,6 +26,6 @@ layout: base.webc
     ].join(" ");
     clockDiv.innerText = cronString;
   }
-  updateTime();
+  window.onload = updateTime;
   window.setInterval(updateTime, 1000);
 </script>
