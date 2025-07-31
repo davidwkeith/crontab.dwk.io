@@ -34,3 +34,4 @@ Custom web components are located in `node_modules/@dwk/web-components/component
 - Add inline comments for hacks, workarounds, or unusual solutions.
 - Add JSDoc using best practices.
 - Update the README and docs/ directory if warrented.
+- Stage a commit, and propose a message, but don't commit until the developer approves of the changes
