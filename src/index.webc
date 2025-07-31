@@ -29,3 +29,22 @@ layout: base.webc
   window.onload = updateTime;
   window.setInterval(updateTime, 1000);
 </script>
+
+<style>
+  #clock-container {
+    font-family: Menlo, monospace;
+    text-align: center;
+    font-size: 5em;
+    margin-top: 2em;
+    margin-bottom: 2em;
+  }
+
+  #clock-container #help {
+    opacity: 0;
+    font-size: 0.5em;
+  }
+
+  #clock-container:hover #help {
+    opacity: 100;
+  }
+</style>
