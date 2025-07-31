@@ -10,7 +10,7 @@ layout: base.webc
   <div id="help">
     m&nbsp;&nbsp;&nbsp;&nbsp;H&nbsp;&nbsp;&nbsp;&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;M&nbsp;&nbsp;&nbsp;&nbsp;d
   </div>
-  
+  <dwk-example></dwk-example>
 </div>
 
 <script>
@@ -29,4 +29,3 @@ layout: base.webc
   window.onload = updateTime;
   window.setInterval(updateTime, 1000);
 </script>
-
