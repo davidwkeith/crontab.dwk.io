@@ -3,7 +3,11 @@ import { eleventyImagePlugin } from '@11ty/eleventy-img';
 
 export default function (eleventyConfig) {
   eleventyConfig.addPlugin(eleventyWebcPlugin, {
-    components: ['src/_includes/**/*.webc', 'npm:@11ty/eleventy-img/*.webc'],
+    components: [
+      'src/_includes/**/*.webc',
+      'npm:@11ty/eleventy-img/*.webc',
+      'npm:@dwk/web-components/components/*.webc',
+    ],
   });
 
   /**
