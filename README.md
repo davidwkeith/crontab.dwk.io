@@ -11,6 +11,15 @@ npm install
 npm test
 ```
 
+## Cloudflare Workers
+
+This project deploys as a Worker that serves the Eleventy build output from `/_site`.
+
+```sh
+npm run build
+npx wrangler deploy
+```
+
 ## Notes
 
 - CSP is strict and uses a build-time nonce for inline scripts/styles.
