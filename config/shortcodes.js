@@ -1,6 +1,7 @@
 import Image from '@11ty/eleventy-img';
 import { lint } from 'jsonld-lint';
 import sharp from 'sharp';
+import pngToIco from 'png-to-ico';
 import fs from 'fs/promises';
 
 export default function (eleventyConfig) {
@@ -125,9 +126,15 @@ export default function (eleventyConfig) {
     const icoSizes = [16, 24, 32, 48, 64, 128, 256];
     const icoOutputPath = './_site/favicon.ico';
     const svgContent = await fs.readFile(src);
-    await sharp(svgContent)
-      .toFormat('ico', { sizes: icoSizes })
-      .toFile(icoOutputPath);
+
+    const pngBuffers = await Promise.all(
+      icoSizes.map((size) =>
+        sharp(svgContent).resize(size, size).png().toBuffer()
+      )
+    );
+
+    const icoBuffer = await pngToIco(pngBuffers);
+    await fs.writeFile(icoOutputPath, icoBuffer);
 
     linkHtml += `<link rel="icon" href="/favicon.ico" sizes="any">`;
 
