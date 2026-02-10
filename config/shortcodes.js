@@ -125,14 +125,9 @@ export default function (eleventyConfig) {
     const icoSizes = [16, 24, 32, 48, 64, 128, 256];
     const icoOutputPath = './_site/favicon.ico';
     const svgContent = await fs.readFile(src);
-
-    const pngBuffers = await Promise.all(
-      icoSizes.map((size) =>
-        sharp(svgContent).resize(size, size).png().toBuffer()
-      )
-    );
-
-    await sharp(pngBuffers[0], { animated: true }).toFile(icoOutputPath);
+    await sharp(svgContent)
+      .toFormat('ico', { sizes: icoSizes })
+      .toFile(icoOutputPath);
 
     linkHtml += `<link rel="icon" href="/favicon.ico" sizes="any">`;
 
