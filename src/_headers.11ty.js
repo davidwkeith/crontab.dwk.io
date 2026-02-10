@@ -23,32 +23,13 @@ export default class Headers {
           'X-Frame-Options': 'DENY',
           'X-Content-Type-Options': 'nosniff',
           'Referrer-Policy': 'no-referrer-when-downgrade',
-          'Content-Security-Policy':
-            "default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self'; frame-ancestors 'self'; form-action 'self';",
+          // CSP is completed at render time to include the build-time nonce.
+          'Content-Security-Policy': '',
           // In development, the 'Content-Security-Policy-Report-Only' header is used to monitor violations
           // without blocking content. Before deploying to production, analyze the violation reports and
           // adjust the main 'Content-Security-Policy' header as needed.
           // For production, the 'Content-Security-Policy-Report-Only' header should be removed.
-          'Content-Security-Policy-Report-Only':
-            "default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self'; frame-ancestors 'self'; form-action 'self';",
-        },
-      },
-      {
-        source: '/actor.json',
-        headers: {
-          'Content-Type': 'application/activity+json',
-        },
-      },
-      {
-        source: '/.well-known/webfinger',
-        headers: {
-          'Content-Type': 'application/jrd+json',
-        },
-      },
-      {
-        source: '/posts/*.json',
-        headers: {
-          'Content-Type': 'application/activity+json',
+          'Content-Security-Policy-Report-Only': '',
         },
       },
       {
@@ -76,11 +57,31 @@ export default class Headers {
    * @param {object} data - Eleventy's data cascade.
    * @returns {Promise<string>} The formatted headers string.
    */
-  async render(_data) {
+  async render(data) {
+    const nonce = data.cspNonce;
+    const csp = [
+      "default-src 'none'",
+      `script-src 'self' 'nonce-${nonce}'`,
+      "connect-src 'self'",
+      "img-src 'self'",
+      `style-src 'self' 'nonce-${nonce}'`,
+      "frame-ancestors 'self'",
+      "form-action 'self'",
+    ].join('; ');
+
     let output = [];
 
     this.headers.forEach((headerConfig) => {
       if (headerConfig.headers) {
+        if (headerConfig.headers['Content-Security-Policy'] !== undefined) {
+          headerConfig.headers['Content-Security-Policy'] = csp;
+        }
+        if (
+          headerConfig.headers['Content-Security-Policy-Report-Only'] !==
+          undefined
+        ) {
+          headerConfig.headers['Content-Security-Policy-Report-Only'] = csp;
+        }
         // This is a set of HTTP response headers
         output.push(headerConfig.source);
         for (const [key, value] of Object.entries(headerConfig.headers)) {

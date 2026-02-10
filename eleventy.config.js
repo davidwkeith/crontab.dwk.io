@@ -1,3 +1,4 @@
+import crypto from 'node:crypto';
 import dotenv from 'dotenv';
 
 import addPlugins from './config/plugins.js';
@@ -17,6 +18,10 @@ dotenv.config();
  * @returns {object}
  */
 export default function (eleventyConfig) {
+  eleventyConfig.addGlobalData(
+    'cspNonce',
+    crypto.randomBytes(16).toString('base64')
+  );
   // FIXME: Workaround for a known issue in eleventy-plugin-webc (https://github.com/11ty/eleventy-plugin-webc/issues/86).
   // When using `permalink` in front matter, especially with dynamic values or for non-HTML files,
   // `page.url` may not be correctly populated or available to other plugins/filters.

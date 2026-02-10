@@ -13,7 +13,7 @@ layout: base.webc
   <dwk-example></dwk-example>
 </div>
 
-<script>
+<script :nonce="$data.cspNonce">
   function updateTime() {
     let clockDiv = document.getElementById("crontab-clock");
     let now = new Date();
@@ -30,7 +30,7 @@ layout: base.webc
   window.setInterval(updateTime, 1000);
 </script>
 
-<style>
+<style :nonce="$data.cspNonce">
   #clock-container {
     font-family: Menlo, monospace;
     text-align: center;

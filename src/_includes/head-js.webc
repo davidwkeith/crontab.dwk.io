@@ -4,7 +4,7 @@
       Makes the assumption that lower level pages are more specific than higher level pages. The call to `getSchema()`
       will validate the JSON-LD and fail the build with an linting message if the Schema is not compliant.
     --->
-    <script webc:if="$data.schema" webc:keep type="application/ld+json" @raw="getSchema({
+    <script webc:if="$data.schema" webc:keep type="application/ld+json" :nonce="$data.cspNonce" @raw="getSchema({
       ...$data.schema, 
       url: (new URL($data.page.url, $data.site?.url)),
     })"></script>

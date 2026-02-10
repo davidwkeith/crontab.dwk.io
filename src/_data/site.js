@@ -69,7 +69,7 @@ export default {
    * @property {boolean} hasActivityPub - Whether to enable ActivityPub.
    * @default true
    */
-  hasActivityPub: true,
+  hasActivityPub: false,
 
   /**
    * Controls whether Progressive Web App (PWA) features are enabled.
