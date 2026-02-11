@@ -19,6 +19,8 @@ function formatCron(now) {
 function startClock() {
   const clock = document.getElementById('crontab-clock');
   const title = document.getElementById('terminal-title');
+  const promptCommand = document.getElementById('prompt-command');
+  const promptCursor = document.querySelector('.prompt__cursor');
   if (!clock) {
     return;
   }
@@ -76,8 +78,31 @@ function startClock() {
     });
   };
 
-  update();
-  window.setInterval(update, 1000);
+  const startUpdates = () => {
+    clock.classList.remove('clock--hidden');
+    update();
+    window.setInterval(update, 1000);
+  };
+
+  if (promptCommand) {
+    const fullCommand = promptCommand.dataset.command ?? '';
+    let index = 0;
+    const typeNext = () => {
+      promptCommand.textContent = fullCommand.slice(0, index);
+      index += 1;
+      if (index <= fullCommand.length) {
+        window.setTimeout(typeNext, 60);
+      } else {
+        if (promptCursor) {
+          promptCursor.classList.add('is-hidden');
+        }
+        startUpdates();
+      }
+    };
+    typeNext();
+  } else {
+    startUpdates();
+  }
 }
 
 if (document.readyState === 'loading') {

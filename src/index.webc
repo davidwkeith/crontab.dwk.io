@@ -16,13 +16,14 @@ layout: base.webc
       <div class="terminal__title" id="terminal-title">CRONTAB CLOCK - local</div>
       <div class="terminal__spacer"></div>
     </div>
-    <div class="terminal__screen">
+      <div class="terminal__screen">
       <div class="prompt">
         <span class="prompt__path">~/</span>
         <span class="prompt__glyph">$</span>
-        <span class="prompt__label">crontab --now</span>
+        <span class="prompt__label" id="prompt-command" data-command="crontab --now"></span>
+        <span class="prompt__cursor" aria-hidden="true">▌</span>
       </div>
-      <div id="crontab-clock" class="clock" aria-live="polite"></div>
+      <div id="crontab-clock" class="clock clock--hidden" aria-live="polite"></div>
     </div>
   </div>
 </div>
