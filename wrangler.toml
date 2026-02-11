@@ -1,9 +1,24 @@
 name = "crontab"
 main = "worker/index.js"
 compatibility_date = "2026-02-10"
-workers_dev = true
+workers_dev = false
+
+routes = [
+  { pattern = "crontab.dwk.io", custom_domain = true }
+]
 
 [assets]
 directory = "./_site"
 binding = "ASSETS"
 run_worker_first = true
+
+[observability]
+enabled = true
+
+[observability.logs]
+enabled = true
+head_sampling_rate = 1
+
+[observability.traces]
+enabled = true
+head_sampling_rate = 1
