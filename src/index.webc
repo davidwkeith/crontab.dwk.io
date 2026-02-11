@@ -5,46 +5,24 @@ changeFreq: yearly
 layout: base.webc
 ---
 
-<div id="clock-container">
-  <div id="crontab-clock"></div>
-  <div id="help">
-    m&nbsp;&nbsp;&nbsp;&nbsp;H&nbsp;&nbsp;&nbsp;&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;M&nbsp;&nbsp;&nbsp;&nbsp;d
+<div class="app">
+  <div class="terminal" role="region" aria-label="Crontab clock terminal">
+    <div class="terminal__titlebar">
+      <div class="traffic-lights" aria-hidden="true">
+        <span class="dot dot--red"></span>
+        <span class="dot dot--yellow"></span>
+        <span class="dot dot--green"></span>
+      </div>
+      <div class="terminal__title" id="terminal-title">CRONTAB CLOCK - local</div>
+      <div class="terminal__spacer"></div>
+    </div>
+    <div class="terminal__screen">
+      <div class="prompt">
+        <span class="prompt__path">~/</span>
+        <span class="prompt__glyph">$</span>
+        <span class="prompt__label">crontab --now</span>
+      </div>
+      <div id="crontab-clock" class="clock" aria-live="polite"></div>
+    </div>
   </div>
-  <dwk-example></dwk-example>
 </div>
-
-<script :nonce="$data.cspNonce">
-  function updateTime() {
-    let clockDiv = document.getElementById("crontab-clock");
-    let now = new Date();
-    let cronString = [
-      now.getMinutes(),
-      now.getHours(),
-      now.getDate(),
-      now.getMonth() + 1,
-      now.getDay(),
-    ].join(" ");
-    clockDiv.innerText = cronString;
-  }
-  window.onload = updateTime;
-  window.setInterval(updateTime, 1000);
-</script>
-
-<style :nonce="$data.cspNonce">
-  #clock-container {
-    font-family: Menlo, monospace;
-    text-align: center;
-    font-size: 5em;
-    margin-top: 2em;
-    margin-bottom: 2em;
-  }
-
-  #clock-container #help {
-    opacity: 0;
-    font-size: 0.5em;
-  }
-
-  #clock-container:hover #help {
-    opacity: 100;
-  }
-</style>

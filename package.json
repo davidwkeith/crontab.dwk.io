@@ -77,14 +77,13 @@
     "eslint-plugin-prettier": "^5.5.3",
     "html-minifier-terser": "^7.2.0",
     "husky": "^9.1.7",
-    "jsonld-lint": "^0.3.0",
     "lint-staged": "^15.5.2",
     "png-to-ico": "^2.1.4",
     "postcss": "^8.5.6",
     "postcss-cli": "^11.0.1",
     "postcss-load-config": "^6.0.1",
     "prettier": "^3.6.2",
-    "wrangler": "^4.37.0",
-    "sharp": "^0.34.3"
+    "sharp": "^0.34.3",
+    "wrangler": "^4.37.0"
   }
 }

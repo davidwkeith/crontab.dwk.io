@@ -8,7 +8,7 @@
   <link webc:if="$data.site.hasPWA" rel="manifest" href="/manifest.webmanifest">
   <link rel="alternate" type="application/json" :href="new URL('/feed.json', $data.site.url)" />
   <link webc:keep rel="stylesheet" :href="getBundleFileUrl('css')">
-  <link rel="stylesheet" href="./main.css">
+  <link rel="stylesheet" href="/main.css">
   <link type="text/plain" rel="author" :href="new URL('/humans.txt', $data.site.url)" />
   <link webc:if="$data.schema.author.url" rel="me" :href="$data.schema.author.url">
   <link webc:if="$data.site.funding" rel="donation" :href="$data.site.funding">

@@ -42,6 +42,8 @@ export default function (eleventyConfig) {
 
   // Pass through static assets
   eleventyConfig.addPassthroughCopy('img/favicon.svg');
+  eleventyConfig.addPassthroughCopy('src/main.css');
+  eleventyConfig.addPassthroughCopy('src/main.js');
 
   addPlugins(eleventyConfig);
   addTransforms(eleventyConfig);

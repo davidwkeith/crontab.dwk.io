@@ -1,5 +1,4 @@
 import Image from '@11ty/eleventy-img';
-import { lint } from 'jsonld-lint';
 import sharp from 'sharp';
 import pngToIco from 'png-to-ico';
 import fs from 'fs/promises';
@@ -67,27 +66,13 @@ export default function (eleventyConfig) {
   });
 
   /**
-   * Get schema.org JSON-LD data, validates against the schema.org
-   * context and returns it as a JSON string.
-   * @param {object} schema - The schema object to validate and stringify.
-   * @returns {Promise<string>} The JSON-LD string.
-   * @throws {string} Throws an error if the schema is invalid.
+   * Get schema.org JSON-LD data and return it as a JSON string.
+   * Validation removed to avoid vulnerable dependency chains.
+   * @param {object} schema - The schema object to stringify.
+   * @returns {string} The JSON-LD string.
    */
-  eleventyConfig.addJavaScriptFunction('getSchema', async (schema) => {
-    const JSONSchema = JSON.stringify(schema);
-    const lintErrors = await lint(JSONSchema);
-    if (lintErrors.length > 0) {
-      console.error('Schema.org JSON-LD validation errors:');
-      lintErrors.forEach((error) => {
-        console.error(
-          `  - ${error.path}: ${error.message} (Line: ${error.line}, Column: ${error.column})`
-        );
-      });
-      throw new Error(
-        'Invalid Schema.org JSON-LD detected. See console for details.'
-      );
-    }
-    return JSONSchema;
+  eleventyConfig.addJavaScriptFunction('getSchema', (schema) => {
+    return JSON.stringify(schema);
   });
 
   /**
