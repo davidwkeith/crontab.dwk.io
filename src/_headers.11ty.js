@@ -58,7 +58,7 @@ export default class Headers {
       "default-src 'none'",
       `script-src 'self' 'nonce-${nonce}'`,
       "connect-src 'self'",
-      "img-src 'self' https://app.greenweb.org",
+      "img-src 'self' https://app.greenweb.org https://s3.nl-ams.scw.cloud",
       `style-src 'self' 'nonce-${nonce}'`,
       "frame-ancestors 'self'",
       "form-action 'self'",
