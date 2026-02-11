@@ -25,11 +25,6 @@ export default class Headers {
           'Referrer-Policy': 'no-referrer-when-downgrade',
           // CSP is completed at render time to include the build-time nonce.
           'Content-Security-Policy': '',
-          // In development, the 'Content-Security-Policy-Report-Only' header is used to monitor violations
-          // without blocking content. Before deploying to production, analyze the violation reports and
-          // adjust the main 'Content-Security-Policy' header as needed.
-          // For production, the 'Content-Security-Policy-Report-Only' header should be removed.
-          'Content-Security-Policy-Report-Only': '',
         },
       },
       {
@@ -63,7 +58,7 @@ export default class Headers {
       "default-src 'none'",
       `script-src 'self' 'nonce-${nonce}'`,
       "connect-src 'self'",
-      "img-src 'self'",
+      "img-src 'self' https://app.greenweb.org",
       `style-src 'self' 'nonce-${nonce}'`,
       "frame-ancestors 'self'",
       "form-action 'self'",
