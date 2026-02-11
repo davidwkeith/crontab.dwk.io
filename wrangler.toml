@@ -1,4 +1,4 @@
-name = "crontab-clock"
+name = "crontab"
 main = "worker/index.js"
 compatibility_date = "2026-02-10"
 workers_dev = true
