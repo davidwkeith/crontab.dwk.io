@@ -66,16 +66,6 @@ export default function (eleventyConfig) {
   });
 
   /**
-   * Get schema.org JSON-LD data and return it as a JSON string.
-   * Validation removed to avoid vulnerable dependency chains.
-   * @param {object} schema - The schema object to stringify.
-   * @returns {string} The JSON-LD string.
-   */
-  eleventyConfig.addJavaScriptFunction('getSchema', (schema) => {
-    return JSON.stringify(schema);
-  });
-
-  /**
    * Generates favicon links for various sizes from a source SVG.
    * @param {string} src - The path to the source SVG favicon (e.g., 'img/favicon.svg').
    * @returns {Promise<string>} The HTML string for favicon <link> elements.

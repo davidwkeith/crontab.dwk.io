@@ -1,9 +1,10 @@
 import crypto from 'node:crypto';
+import childProcess from 'node:child_process';
 import dotenv from 'dotenv';
+import sharedPlugin from '@dwk/eleventy-shared';
 
 import addPlugins from './config/plugins.js';
-import addTransforms from './config/transforms.js';
-import addFilters from './config/filters.js';
+import addPostcssTransform from './config/transforms.js';
 import addShortcodes from './config/shortcodes.js';
 import setLibraries from './config/libraries.js';
 
@@ -23,22 +24,18 @@ export default function (eleventyConfig) {
     crypto.randomBytes(16).toString('base64')
   );
   // FIXME: Workaround for a known issue in eleventy-plugin-webc (https://github.com/11ty/eleventy-plugin-webc/issues/86).
-  // When using `permalink` in front matter, especially with dynamic values or for non-HTML files,
-  // `page.url` may not be correctly populated or available to other plugins/filters.
-  // To avoid build errors and ensure consistent URL generation, explicitly duplicate the `permalink`
-  // value in `page.url` within the front matter for affected templates.
-  //
-  // Example:
-  // ```
-  // permalink: /my-page/index.html
-  // page:
-  //    url: /my-page/
-  // ```
-  // This ensures that `page.url` is always available and correctly reflects the intended output URL.
   eleventyConfig.setFreezeReservedData(false);
 
-  eleventyConfig.addBundle('css');
-  eleventyConfig.addBundle('js');
+  eleventyConfig.addPlugin(sharedPlugin, {
+    url: 'https://crontab.dwk.io',
+    language: 'en',
+    securityContact: 'mailto:git@dwk.io?subject=Security%20Bug%20Report%3A%20%40dwk%2Fcrontab.dwk.io',
+    humans: {
+      commitHash: childProcess.execSync('git rev-parse --short HEAD').toString().trim(),
+    },
+    fourOhFour: { layout: 'base.webc', title: '404 Not Found' },
+    disableConfig: { typescript: true, shortcodes: true },
+  });
 
   // Pass through static assets
   eleventyConfig.addPassthroughCopy('img/favicon.svg');
@@ -46,8 +43,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy('src/main.js');
 
   addPlugins(eleventyConfig);
-  addTransforms(eleventyConfig);
-  addFilters(eleventyConfig);
+  addPostcssTransform(eleventyConfig);
   addShortcodes(eleventyConfig);
   setLibraries(eleventyConfig);
 

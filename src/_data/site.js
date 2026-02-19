@@ -275,17 +275,6 @@ export default {
   },
 
   /**
-   * The security contact for the site, used in `security.txt`.
-   *
-   * @see https://www.rfc-editor.org/rfc/rfc9116#section-2.5.3
-   * @computed
-   * @property {string} securityContact - The security contact for the site.
-   */
-  securityContact: `mailto:${pkg.bugs.email}?subject=${encodeURIComponent(
-    `Security Bug Report: ${pkg.name}`
-  )}`,
-
-  /**
    * The funding URL for the site.
    *
    * @computed
