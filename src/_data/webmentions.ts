@@ -1,13 +1,10 @@
 import EleventyFetch from '@11ty/eleventy-fetch';
-import site from './site.js';
+import site from './site.ts';
 
 /**
- * Fetches webmentions from webmention.io for the domain specified in the site configuration.
- * This data is made available in the Eleventy data cascade as `webmentions`.
- *
- * @returns {Promise<object[]>} A promise that resolves to an array of webmention objects, or an empty array if the feature is disabled or the fetch fails.
+ * Fetches webmentions from webmention.io for the configured domain.
  */
-export default async function () {
+export default async function (): Promise<unknown[]> {
   if (!site.hasWebmentions) {
     return [];
   }

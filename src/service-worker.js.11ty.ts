@@ -1,4 +1,19 @@
-export default class {
+interface CollectionItem {
+  outputPath?: string;
+  url: string;
+}
+
+interface BundleItem {
+  url: string;
+}
+
+interface ServiceWorkerData {
+  site: { hash?: string };
+  collections: { all: CollectionItem[] };
+  bundles?: Record<string, BundleItem[]>;
+}
+
+export default class ServiceWorker {
   data() {
     return {
       permalink: '/service-worker.js',
@@ -6,21 +21,18 @@ export default class {
     };
   }
 
-  render(data) {
+  render(data: ServiceWorkerData) {
     const urlsToCache = [
       '/',
       '/index.html',
-      // Add all HTML pages
       ...data.collections.all
         .filter((item) => item.outputPath && item.outputPath.endsWith('.html'))
         .map((item) => item.url),
-      // Add bundled CSS and JS
       ...(data.bundles
         ? Object.values(data.bundles)
             .flat()
             .map((bundle) => bundle.url)
         : []),
-      // Add static assets
       '/img/favicon.svg',
       '/img/favicons/favicon-192.png',
       '/img/favicons/favicon-512.png',

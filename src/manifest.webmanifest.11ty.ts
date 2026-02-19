@@ -1,4 +1,18 @@
-export default class {
+interface SiteData {
+  site: {
+    title: string;
+    description: string;
+    hasPWA: boolean;
+    pwa: {
+      short_name: string;
+      background_color: string;
+      theme_color: string;
+      display: string;
+    };
+  };
+}
+
+export default class Manifest {
   data() {
     return {
       permalink: '/manifest.webmanifest',
@@ -6,7 +20,7 @@ export default class {
     };
   }
 
-  render(data) {
+  render(data: SiteData) {
     const { site } = data;
     if (!site.hasPWA) {
       return null;

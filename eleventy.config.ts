@@ -2,11 +2,10 @@ import crypto from 'node:crypto';
 import childProcess from 'node:child_process';
 import dotenv from 'dotenv';
 import sharedPlugin from '@dwk/eleventy-shared';
+import type UserConfig from '@11ty/eleventy/src/UserConfig';
 
-import addPlugins from './config/plugins.js';
-import addPostcssTransform from './config/transforms.js';
-import addShortcodes from './config/shortcodes.js';
-import setLibraries from './config/libraries.js';
+import addPlugins from './config/plugins.ts';
+import addShortcodes from './config/shortcodes.ts';
 
 /**
  * Load environment variables from .env file.
@@ -15,13 +14,11 @@ dotenv.config();
 
 /**
  * Eleventy configuration function.
- * @param {import("@11ty/eleventy/src/UserConfig")} eleventyConfig
- * @returns {object}
  */
-export default function (eleventyConfig) {
+export default function (eleventyConfig: UserConfig) {
   eleventyConfig.addGlobalData(
     'cspNonce',
-    crypto.randomBytes(16).toString('base64')
+    crypto.randomBytes(16).toString('base64'),
   );
   // FIXME: Workaround for a known issue in eleventy-plugin-webc (https://github.com/11ty/eleventy-plugin-webc/issues/86).
   eleventyConfig.setFreezeReservedData(false);
@@ -34,7 +31,7 @@ export default function (eleventyConfig) {
       commitHash: childProcess.execSync('git rev-parse --short HEAD').toString().trim(),
     },
     fourOhFour: { layout: 'base.webc', title: '404 Not Found' },
-    disableConfig: { typescript: true, shortcodes: true },
+    enableConfig: { postcss: true },
   });
 
   // Pass through static assets
@@ -43,12 +40,10 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy('src/main.js');
 
   addPlugins(eleventyConfig);
-  addPostcssTransform(eleventyConfig);
   addShortcodes(eleventyConfig);
-  setLibraries(eleventyConfig);
 
   return {
-    templateFormats: ['11ty.js', 'webc', 'md', 'html'],
+    templateFormats: ['11ty.js', '11ty.ts', 'webc', 'md', 'html'],
     dir: {
       input: 'src',
       output: '_site',

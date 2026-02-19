@@ -4,9 +4,10 @@
   "description": "The current time in crontab format.",
   "type": "module",
   "scripts": {
-    "serve": "npx @11ty/eleventy --serve",
-    "build": "npx @11ty/eleventy",
+    "serve": "NODE_OPTIONS=--experimental-strip-types eleventy --config=eleventy.config.ts --serve",
+    "build": "NODE_OPTIONS=--experimental-strip-types eleventy --config=eleventy.config.ts",
     "test": "npm run build",
+    "typecheck": "tsc --noEmit",
     "dev:worker": "npx wrangler dev",
     "deploy:worker": "npx wrangler deploy",
     "lint": "eslint .",
@@ -35,7 +36,7 @@
   "funding": "https://www.buymeacoffee.com/davidwkeith",
   "homepage": "https://crontab.dwk.io",
   "engines": {
-    "node": ">=20.11.1",
+    "node": ">=22.0.0",
     "npm": ">=10.9.0"
   },
   "os": [
@@ -48,7 +49,7 @@
     "arm64"
   ],
   "lint-staged": {
-    "*.js": [
+    "*.{js,ts}": [
       "eslint --fix",
       "prettier --write"
     ],
@@ -86,5 +87,8 @@
     "prettier": "^3.6.2",
     "sharp": "^0.34.3",
     "wrangler": "^4.37.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
   }
 }
