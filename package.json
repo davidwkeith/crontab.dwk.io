@@ -43,7 +43,7 @@
   "dependencies": {
     "astro": "^5.0.0",
     "@astrojs/sitemap": "^3.0.0",
-    "wrangler": "^4.37.0"
+    "wrangler": "^4.76.0"
   },
   "devDependencies": {
     "typescript": "^5.9.3"
