@@ -1,0 +1,27 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="404 — Not Found" description="The page you're looking for doesn't exist.">
+  <div class="app">
+    <div class="terminal" role="region" aria-label="Error message">
+      <div class="terminal__titlebar">
+        <div class="traffic-lights" aria-hidden="true">
+          <span class="dot dot--red"></span>
+          <span class="dot dot--yellow"></span>
+          <span class="dot dot--green"></span>
+        </div>
+        <div class="terminal__title">404</div>
+        <div class="terminal__spacer"></div>
+      </div>
+      <div class="terminal__screen">
+        <div class="prompt">
+          <span class="prompt__path">~/</span>
+          <span class="prompt__glyph">$</span>
+          <span class="prompt__label">page not found</span>
+        </div>
+        <p class="hint"><a href="/" style="color: inherit;">cd ~</a></p>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

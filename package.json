@@ -4,8 +4,9 @@
   "description": "The current time in crontab format.",
   "type": "module",
   "scripts": {
-    "serve": "NODE_OPTIONS=--experimental-strip-types eleventy --config=eleventy.config.ts --serve",
-    "build": "NODE_OPTIONS=--experimental-strip-types eleventy --config=eleventy.config.ts",
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
     "test": "npm run build",
     "typecheck": "tsc --noEmit",
     "dev:worker": "npx wrangler dev",
@@ -39,53 +40,9 @@
     "node": ">=22.0.0",
     "npm": ">=10.9.0"
   },
-  "os": [
-    "darwin",
-    "linux",
-    "win32"
-  ],
-  "cpu": [
-    "x64",
-    "arm64"
-  ],
-  "lint-staged": {
-    "*.{js,ts}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.json": [
-      "prettier --write"
-    ],
-    "*.md": [
-      "prettier --write"
-    ],
-    "*.webc": [
-      "prettier --write"
-    ],
-    "*.css": [
-      "prettier --write"
-    ]
-  },
   "dependencies": {
-    "@dwk/eleventy-shared": "^0.2.0",
-    "@11ty/eleventy": "^3.1.2",
-    "@11ty/eleventy-fetch": "^5.1.0",
-    "@11ty/eleventy-img": "^6.0.4",
-    "@11ty/eleventy-plugin-webc": "^0.11.2",
-    "autoprefixer": "^10.4.21",
-    "dotenv": "^17.2.0",
-    "eslint": "^9.32.0",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-prettier": "^5.5.3",
-    "html-minifier-terser": "^7.2.0",
-    "husky": "^9.1.7",
-    "lint-staged": "^15.5.2",
-    "png-to-ico": "^2.1.4",
-    "postcss": "^8.5.6",
-    "postcss-cli": "^11.0.1",
-    "postcss-load-config": "^6.0.1",
-    "prettier": "^3.6.2",
-    "sharp": "^0.34.3",
+    "astro": "^5.0.0",
+    "@astrojs/sitemap": "^3.0.0",
     "wrangler": "^4.37.0"
   },
   "devDependencies": {

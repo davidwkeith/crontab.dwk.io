@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(anglesite:design-interview)",
+      "Skill(anglesite:design-interview:*)",
+      "WebFetch(domain:crontab.dwk.io)"
+    ]
+  }
+}

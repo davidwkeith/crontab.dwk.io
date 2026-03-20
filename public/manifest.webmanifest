@@ -1,0 +1,15 @@
+{
+  "name": "Crontab Clock",
+  "short_name": "Crontab",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#0a0b10",
+  "theme_color": "#11131a",
+  "icons": [
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

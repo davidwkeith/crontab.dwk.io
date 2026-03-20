@@ -1,0 +1,144 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Crontab Clock",
+  "url": "https://crontab.dwk.io",
+  "description": "The current time in crontab format.",
+  "applicationCategory": "UtilityApplication",
+  "author": {
+    "@type": "Person",
+    "name": "dwk",
+    "url": "https://dwk.io"
+  }
+};
+---
+
+<BaseLayout
+  title="Crontab Clock"
+  description="The current time in crontab format."
+  jsonLd={jsonLd}
+>
+  <div class="app">
+    <div class="terminal" role="region" aria-label="Crontab clock terminal">
+      <div class="terminal__titlebar">
+        <div class="traffic-lights" aria-hidden="true">
+          <span class="dot dot--red"></span>
+          <span class="dot dot--yellow"></span>
+          <span class="dot dot--green"></span>
+        </div>
+        <div class="terminal__title" id="terminal-title">CRONTAB CLOCK - local</div>
+        <div class="terminal__spacer"></div>
+      </div>
+      <div class="terminal__screen">
+        <div class="prompt">
+          <span class="prompt__path">~/</span>
+          <span class="prompt__glyph">$</span>
+          <span class="prompt__label" id="prompt-command" data-command="crontab --now"></span>
+          <span class="prompt__cursor" aria-hidden="true">&#9612;</span>
+        </div>
+        <div id="crontab-clock" class="clock clock--hidden" aria-live="polite"></div>
+      </div>
+    </div>
+  </div>
+
+  <script is:inline>
+    function formatCron(now) {
+      return [
+        { label: 'Minute', value: now.getMinutes() },
+        { label: 'Hour', value: now.getHours() },
+        { label: 'Day of month', value: now.getDate() },
+        { label: 'Month', value: now.getMonth() + 1 },
+        { label: 'Day of week', value: now.getDay() },
+      ];
+    }
+
+    function startClock() {
+      var clock = document.getElementById('crontab-clock');
+      var title = document.getElementById('terminal-title');
+      var promptCommand = document.getElementById('prompt-command');
+      var promptCursor = document.querySelector('.prompt__cursor');
+      if (!clock) return;
+
+      if (title) {
+        var zone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'local';
+        title.textContent = 'CRONTAB CLOCK - ' + zone;
+      }
+
+      var parts = [
+        { label: 'Minute', key: 'minute' },
+        { label: 'Hour', key: 'hour' },
+        { label: 'Day of month', key: 'dom' },
+        { label: 'Month', key: 'month' },
+        { label: 'Day of week', key: 'dow' },
+      ];
+
+      var fields = parts.map(function(part) {
+        var span = document.createElement('span');
+        span.className = 'clock__field';
+        span.dataset.label = part.label;
+        span.setAttribute('aria-label', part.label);
+        span.setAttribute('title', part.label);
+        span.setAttribute('tabindex', '0');
+        return span;
+      });
+
+      var sep = function() {
+        var s = document.createElement('span');
+        s.className = 'clock__sep';
+        s.setAttribute('aria-hidden', 'true');
+        s.textContent = ' ';
+        return s;
+      };
+
+      clock.replaceChildren(
+        fields[0], sep(),
+        fields[1], sep(),
+        fields[2], sep(),
+        fields[3], sep(),
+        fields[4]
+      );
+
+      var update = function() {
+        var values = formatCron(new Date());
+        var plain = values.map(function(p) { return p.value; }).join(' ');
+        clock.setAttribute('aria-label', 'Crontab time ' + plain);
+        values.forEach(function(part, index) {
+          fields[index].textContent = String(part.value).padStart(2, '0');
+        });
+      };
+
+      var startUpdates = function() {
+        clock.classList.remove('clock--hidden');
+        update();
+        window.setInterval(update, 1000);
+      };
+
+      if (promptCommand) {
+        var fullCommand = promptCommand.dataset.command || '';
+        var index = 0;
+        var typeNext = function() {
+          promptCommand.textContent = fullCommand.slice(0, index);
+          index += 1;
+          if (index <= fullCommand.length) {
+            window.setTimeout(typeNext, 60);
+          } else {
+            if (promptCursor) promptCursor.classList.add('is-hidden');
+            startUpdates();
+          }
+        };
+        typeNext();
+      } else {
+        startUpdates();
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', startClock, { once: true });
+    } else {
+      startClock();
+    }
+  </script>
+</BaseLayout>
