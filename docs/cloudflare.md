@@ -87,7 +87,7 @@ npx wrangler pages deploy dist/ --project-name CF_PROJECT_NAME
 ## Security headers
 
 Defined in `public/_headers`. Applied to all routes:
-- `Content-Security-Policy` — only self + Cloudflare Insights, plus `app.greenweb.org` for images (the Green Web badge in the footer). No inline scripts: page scripts must be bundled by Astro (`<script>`, not `<script is:inline>`)
+- `Content-Security-Policy` — only self + Cloudflare Insights, plus `app.greenweb.org` and `s3.nl-ams.scw.cloud` for images (the Green Web badge in the footer: `app.greenweb.org` redirects to a signed image URL on the Scaleway host). No inline scripts: page scripts must be bundled by Astro (`<script>`, not `<script is:inline>`)
 - `X-Frame-Options: DENY`
 - `X-Content-Type-Options: nosniff`
 - `Referrer-Policy: strict-origin-when-cross-origin`
