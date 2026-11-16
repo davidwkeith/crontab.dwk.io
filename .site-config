@@ -2,5 +2,5 @@ SITE_TYPE=personal
 OWNER_NAME=dwk
 SITE_NAME=Crontab Clock
 DEV_HOSTNAME=crontab.dwk.io.local
-AI_MODEL=Claude Opus 4.6
+AI_MODEL=Claude Sonnet 5.5
 EXPLAIN_STEPS=false

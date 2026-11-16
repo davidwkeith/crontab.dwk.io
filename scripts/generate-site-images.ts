@@ -1,11 +1,13 @@
 /**
- * Generate public/og-image.png (1200x630), the default social sharing card.
+ * Generate the site's two raster images:
+ *   - public/og-image.png (1200x630), the default social sharing card
+ *   - public/apple-touch-icon.png (180x180), the home-screen icon
  *
- * Draws the site's terminal window in its dark palette (see
- * src/styles/global.css) with a fixed example cron time. The output is
+ * Both use the site's dark palette (see src/styles/global.css). The card shows
+ * the terminal window with a fixed example cron time. The outputs are
  * committed, so this only needs to run when the design changes.
  *
- * Run: npm run og-image
+ * Run: npm run site-images
  */
 
 import sharp from "sharp";
@@ -73,3 +75,15 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${WIDTH}" height="${
 
 await sharp(Buffer.from(svg)).png().toFile(resolve("public", "og-image.png"));
 console.log("Generated public/og-image.png (1200x630)");
+
+// Full-bleed square: iOS applies its own rounded-corner mask.
+const iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180">
+  <rect width="180" height="180" fill="${color.terminal}" />
+  <circle cx="90" cy="90" r="58" fill="none" stroke="${color.clock}" stroke-width="8" />
+  <line x1="90" y1="90" x2="90" y2="52" stroke="${color.clock}" stroke-width="9" stroke-linecap="round" />
+  <line x1="90" y1="90" x2="116" y2="104" stroke="${color.clock}" stroke-width="9" stroke-linecap="round" />
+  <circle cx="90" cy="90" r="6" fill="#28c840" />
+</svg>`;
+
+await sharp(Buffer.from(iconSvg)).png().toFile(resolve("public", "apple-touch-icon.png"));
+console.log("Generated public/apple-touch-icon.png (180x180)");

@@ -7,9 +7,10 @@ interface Props {
   description: string;
   image?: string;
   jsonLd?: Record<string, unknown>;
+  noindex?: boolean;
 }
 
-const { title, description, image, jsonLd } = Astro.props;
+const { title, description, image, jsonLd, noindex = false } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(image ?? "/og-image.png", Astro.site).toString();
 const ogImageAlt =
@@ -35,7 +36,9 @@ const generator = `Anglesite ${version} (${aiModel}, ${Astro.generator})`;
     <meta name="generator" content={generator} />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonicalURL} />
+    {noindex
+      ? <meta name="robots" content="noindex" />
+      : <link rel="canonical" href={canonicalURL} />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
@@ -78,7 +81,9 @@ const generator = `Anglesite ${version} (${aiModel}, ${Astro.generator})`;
       <div class="footer-license">
         <a href="/" class="footer-link">crontab clock</a>
         <span>by</span>
-        <a href="https://dwk.io/" class="footer-link" rel="me">David W. Keith</a>
+        <span class="h-card">
+          <a href="https://dwk.io/" class="footer-link p-name u-url" rel="me">David W. Keith</a>
+        </span>
         <span>is licensed under</span>
         <span class="footer-break" aria-hidden="true"></span>
         <a
@@ -112,6 +117,7 @@ const generator = `Anglesite ${version} (${aiModel}, ${Astro.generator})`;
             width="200"
             height="95"
             loading="lazy"
+            referrerpolicy="no-referrer"
           />
         </a>
       </div>

@@ -17,6 +17,8 @@
 - Dark mode: near-black terminal on deep charcoal with subtle blue glow
 - Traffic light dots: red `#ff5f57`, yellow `#febc2e`, green `#28c840`
 - Supports `prefers-color-scheme` with no toggle — follows system preference
+- Light-mode muted text is `#5f6673` (4.9:1 on the darkest part of the background gradient, so it passes WCAG AA)
+- Home-screen icon: a drawn clock face in the dark palette. Social card: the dark terminal with an example time. Both come from `npm run site-images`.
 
 **Typography:** Monospace system stack — `"SF Mono", Menlo, Monaco, "Cascadia Mono", "Fira Code", monospace`. Used for everything — headings, body, clock display.
 
@@ -40,8 +42,10 @@ Minimal: CC-BY 4.0 license with Creative Commons icons, link to dwk.io.
 ## Accessibility
 
 - WCAG AA contrast in both light and dark modes
-- `aria-live="polite"` on the clock for screen readers
-- `aria-label` on each clock field
+- `role="timer"` on the clock (not `aria-live`, which would announce every second)
+- Each clock field is a `role="group"` whose `aria-label` includes its value (e.g. "Minute 30")
+- One visually hidden `<h1>` per page
+- A message for visitors without JavaScript
 - Keyboard-focusable clock fields with visible focus indicators
 - Skip link to main content
 - Reduced motion support

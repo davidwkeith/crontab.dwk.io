@@ -8,3 +8,5 @@ dist/
 *.log
 *.tmp
 node_modules/
+.wrangler/
+.playwright-mcp/

@@ -9,7 +9,7 @@
     "preview": "astro preview",
     "test": "npm run build",
     "typecheck": "astro check",
-    "og-image": "node scripts/generate-og-image.ts",
+    "site-images": "node scripts/generate-site-images.ts",
     "dev:worker": "npx wrangler dev",
     "deploy:worker": "npx wrangler deploy",
     "lint": "eslint .",
@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.com/dwk-io/crontab.git"
+    "url": "git+https://github.com/davidwkeith/crontab.dwk.io.git"
   },
   "keywords": [
     "cron",
@@ -32,7 +32,7 @@
   "license": "ISC",
   "licenseUrl": "https://opensource.org/licenses/ISC",
   "bugs": {
-    "url": "https://gitlab.com/dwk-io/crontab/issues",
+    "url": "https://github.com/davidwkeith/crontab.dwk.io/issues",
     "email": "git@dwk.io"
   },
   "funding": "https://www.buymeacoffee.com/davidwkeith",

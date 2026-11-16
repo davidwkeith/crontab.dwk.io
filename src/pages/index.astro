@@ -10,7 +10,7 @@ const jsonLd = {
   "applicationCategory": "UtilityApplication",
   "author": {
     "@type": "Person",
-    "name": "dwk",
+    "name": "David W. Keith",
     "url": "https://dwk.io"
   }
 };
@@ -21,6 +21,7 @@ const jsonLd = {
   description="The current time in crontab format."
   jsonLd={jsonLd}
 >
+  <h1 class="sr-only">Crontab Clock</h1>
   <div class="app">
     <div class="terminal" role="region" aria-label="Crontab clock terminal">
       <div class="terminal__titlebar">
@@ -39,7 +40,10 @@ const jsonLd = {
           <span class="prompt__label" id="prompt-command" data-command="crontab --now"></span>
           <span class="prompt__cursor" aria-hidden="true">&#9612;</span>
         </div>
-        <div id="crontab-clock" class="clock clock--hidden" aria-live="polite"></div>
+        <div id="crontab-clock" class="clock clock--hidden" role="timer"></div>
+        <noscript>
+          <p class="hint">This clock needs JavaScript to show the current time.</p>
+        </noscript>
       </div>
     </div>
   </div>
@@ -79,6 +83,7 @@ const jsonLd = {
         const span = document.createElement("span");
         span.className = "clock__field";
         span.dataset.label = label;
+        span.setAttribute("role", "group");
         span.setAttribute("aria-label", label);
         span.setAttribute("title", label);
         span.setAttribute("tabindex", "0");
@@ -106,7 +111,9 @@ const jsonLd = {
         const plain = values.map((p) => p.value).join(" ");
         clock.setAttribute("aria-label", "Crontab time " + plain);
         values.forEach((part, index) => {
-          fields[index].textContent = String(part.value).padStart(2, "0");
+          const field = fields[index];
+          field.textContent = String(part.value).padStart(2, "0");
+          field.setAttribute("aria-label", part.label + " " + part.value);
         });
       };
 

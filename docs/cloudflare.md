@@ -88,10 +88,15 @@ npx wrangler pages deploy dist/ --project-name CF_PROJECT_NAME
 
 Defined in `public/_headers`. Applied to all routes:
 - `Content-Security-Policy` — only self + Cloudflare Insights, plus `app.greenweb.org` and `s3.nl-ams.scw.cloud` for images (the Green Web badge in the footer: `app.greenweb.org` redirects to a signed image URL on the Scaleway host). No inline scripts: page scripts must be bundled by Astro (`<script>`, not `<script is:inline>`)
+- `Strict-Transport-Security` — one year, this host only (no `includeSubDomains` or `preload`)
 - `X-Frame-Options: DENY`
 - `X-Content-Type-Options: nosniff`
 - `Referrer-Policy: strict-origin-when-cross-origin`
 - `Permissions-Policy` — blocks camera, microphone, geolocation, payment, interest-cohort
+
+## Missing pages (404)
+
+`wrangler.toml` sets `not_found_handling = "404-page"`, so a missing path returns `dist/404.html` with a real 404 status. The Worker (`worker/index.ts`) just passes requests through to `env.ASSETS.fetch()`. Do not add a fallback that fetches `/404.html` yourself: the assets layer redirects that path to `/404` (307), which turns every missing page into a redirect followed by a 200 ("soft 404"). The 404 page is `noindex`.
 
 ## Troubleshooting
 
