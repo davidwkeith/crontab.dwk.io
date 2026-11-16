@@ -9,6 +9,7 @@
     "preview": "astro preview",
     "test": "npm run build",
     "typecheck": "astro check",
+    "og-image": "node scripts/generate-og-image.ts",
     "dev:worker": "npx wrangler dev",
     "deploy:worker": "npx wrangler deploy",
     "lint": "eslint .",
@@ -48,6 +49,7 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.12",
     "autoprefixer": "^10.6.2",
+    "sharp": "^0.35.5",
     "typescript": "^5.9.3"
   }
 }

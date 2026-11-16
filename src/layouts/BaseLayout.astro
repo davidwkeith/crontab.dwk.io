@@ -11,7 +11,9 @@ interface Props {
 
 const { title, description, image, jsonLd } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const ogImage = image ? new URL(image, Astro.site).toString() : undefined;
+const ogImage = new URL(image ?? "/og-image.png", Astro.site).toString();
+const ogImageAlt =
+  "A terminal window showing the crontab clock: the current time as five cron fields.";
 
 const { version } = JSON.parse(
   readFileSync(resolve(process.cwd(), "package.json"), "utf-8"),
@@ -41,12 +43,16 @@ const generator = `Anglesite ${version} (${aiModel}, ${Astro.generator})`;
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={ogImageAlt} />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    {ogImage && <meta name="twitter:image" content={ogImage} />}
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={ogImageAlt} />
 
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="theme-color" content="#11131a" media="(prefers-color-scheme: dark)" />
