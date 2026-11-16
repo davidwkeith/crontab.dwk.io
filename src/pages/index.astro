@@ -44,52 +44,52 @@ const jsonLd = {
     </div>
   </div>
 
-  <script is:inline>
-    function formatCron(now) {
+  <script>
+    function formatCron(now: Date) {
       return [
-        { label: 'Minute', value: now.getMinutes() },
-        { label: 'Hour', value: now.getHours() },
-        { label: 'Day of month', value: now.getDate() },
-        { label: 'Month', value: now.getMonth() + 1 },
-        { label: 'Day of week', value: now.getDay() },
+        { label: "Minute", value: now.getMinutes() },
+        { label: "Hour", value: now.getHours() },
+        { label: "Day of month", value: now.getDate() },
+        { label: "Month", value: now.getMonth() + 1 },
+        { label: "Day of week", value: now.getDay() },
       ];
     }
 
     function startClock() {
-      var clock = document.getElementById('crontab-clock');
-      var title = document.getElementById('terminal-title');
-      var promptCommand = document.getElementById('prompt-command');
-      var promptCursor = document.querySelector('.prompt__cursor');
+      const clock = document.getElementById("crontab-clock");
+      const title = document.getElementById("terminal-title");
+      const promptCommand = document.getElementById("prompt-command");
+      const promptCursor = document.querySelector(".prompt__cursor");
       if (!clock) return;
 
       if (title) {
-        var zone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'local';
-        title.textContent = 'CRONTAB CLOCK - ' + zone;
+        const zone = Intl.DateTimeFormat().resolvedOptions().timeZone || "local";
+        title.textContent = "CRONTAB CLOCK - " + zone;
       }
 
-      var parts = [
-        { label: 'Minute', key: 'minute' },
-        { label: 'Hour', key: 'hour' },
-        { label: 'Day of month', key: 'dom' },
-        { label: 'Month', key: 'month' },
-        { label: 'Day of week', key: 'dow' },
+      const labels = [
+        "Minute",
+        "Hour",
+        "Day of month",
+        "Month",
+        "Day of week",
       ];
 
-      var fields = parts.map(function(part) {
-        var span = document.createElement('span');
-        span.className = 'clock__field';
-        span.dataset.label = part.label;
-        span.setAttribute('aria-label', part.label);
-        span.setAttribute('title', part.label);
-        span.setAttribute('tabindex', '0');
+      const fields = labels.map((label) => {
+        const span = document.createElement("span");
+        span.className = "clock__field";
+        span.dataset.label = label;
+        span.setAttribute("aria-label", label);
+        span.setAttribute("title", label);
+        span.setAttribute("tabindex", "0");
         return span;
       });
 
-      var sep = function() {
-        var s = document.createElement('span');
-        s.className = 'clock__sep';
-        s.setAttribute('aria-hidden', 'true');
-        s.textContent = ' ';
+      const sep = () => {
+        const s = document.createElement("span");
+        s.className = "clock__sep";
+        s.setAttribute("aria-hidden", "true");
+        s.textContent = " ";
         return s;
       };
 
@@ -98,34 +98,34 @@ const jsonLd = {
         fields[1], sep(),
         fields[2], sep(),
         fields[3], sep(),
-        fields[4]
+        fields[4],
       );
 
-      var update = function() {
-        var values = formatCron(new Date());
-        var plain = values.map(function(p) { return p.value; }).join(' ');
-        clock.setAttribute('aria-label', 'Crontab time ' + plain);
-        values.forEach(function(part, index) {
-          fields[index].textContent = String(part.value).padStart(2, '0');
+      const update = () => {
+        const values = formatCron(new Date());
+        const plain = values.map((p) => p.value).join(" ");
+        clock.setAttribute("aria-label", "Crontab time " + plain);
+        values.forEach((part, index) => {
+          fields[index].textContent = String(part.value).padStart(2, "0");
         });
       };
 
-      var startUpdates = function() {
-        clock.classList.remove('clock--hidden');
+      const startUpdates = () => {
+        clock.classList.remove("clock--hidden");
         update();
         window.setInterval(update, 1000);
       };
 
       if (promptCommand) {
-        var fullCommand = promptCommand.dataset.command || '';
-        var index = 0;
-        var typeNext = function() {
+        const fullCommand = promptCommand.dataset.command || "";
+        let index = 0;
+        const typeNext = () => {
           promptCommand.textContent = fullCommand.slice(0, index);
           index += 1;
           if (index <= fullCommand.length) {
             window.setTimeout(typeNext, 60);
           } else {
-            if (promptCursor) promptCursor.classList.add('is-hidden');
+            if (promptCursor) promptCursor.classList.add("is-hidden");
             startUpdates();
           }
         };
@@ -135,8 +135,8 @@ const jsonLd = {
       }
     }
 
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', startClock, { once: true });
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", startClock, { once: true });
     } else {
       startClock();
     }

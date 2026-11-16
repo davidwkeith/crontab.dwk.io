@@ -18,4 +18,11 @@ export default defineConfig({
   site: siteUrl,
   devToolbar: { enabled: false },
   integrations: [sitemap()],
+  vite: {
+    build: {
+      // The CSP (public/_headers) forbids inline scripts. Astro inlines
+      // bundled scripts under this size, so force them to external files.
+      assetsInlineLimit: 0,
+    },
+  },
 });
