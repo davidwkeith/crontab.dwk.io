@@ -107,6 +107,9 @@ main {
 
 .terminal__title {
   font-weight: 600;
+  /* Long timezone names must wrap, not clip, on narrow screens. */
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .terminal__spacer {
@@ -314,7 +317,7 @@ main {
   gap: 6px;
   align-items: center;
   justify-content: center;
-  font-size: 0.95em;
+  font-size: 1em;
 }
 
 .footer-break {

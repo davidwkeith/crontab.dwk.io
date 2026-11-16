@@ -68,7 +68,10 @@ const jsonLd = {
 
       if (title) {
         const zone = Intl.DateTimeFormat().resolvedOptions().timeZone || "local";
-        title.textContent = "CRONTAB CLOCK - " + zone;
+        // Zero-width spaces after "/" and "_" let long zone names wrap between
+        // words on narrow screens instead of mid-word.
+        title.textContent =
+          "CRONTAB CLOCK - " + zone.replace(/([/_])/g, "$1​");
       }
 
       const labels = [
