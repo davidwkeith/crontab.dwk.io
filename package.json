@@ -43,7 +43,7 @@
   "dependencies": {
     "@astrojs/sitemap": "^3.0.0",
     "astro": "^5.0.0",
-    "wrangler": "^4.37.0"
+    "wrangler": "^4.163.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.6.2",
